@@ -1,0 +1,39 @@
+import React from 'react';
+
+interface CardProps {
+    title: string;
+    onDelete: () => void;
+    onEdit: () => void;
+}
+
+export default function Card({ title, onDelete, onEdit }: CardProps) {
+    return (
+        <div className="bg-white shadow-lg rounded-xl p-4 flex flex-col items-center justify-between">
+            <div className="flex flex-col items-center">
+                {/* Ícone circular */}
+                <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                    <img src="/icone.svg" alt="Icon" className="w-12 h-12" />
+                </div>
+                {/* Título */}
+                <p className="text-gray-600 text-center mb-4">{title}</p>
+            </div>
+            {/* Botões de ação */}
+            <div className="flex justify-between w-full border-t pt-2">
+                <button
+                    onClick={onDelete}
+                    className="flex items-center justify-center text-red-500 w-full py-2"
+                >
+                    <img src="/Icon-trash.svg" alt="Excluir" className="w-4 h-4 mr-2" />
+                    Excluir
+                </button>
+                <button
+                    onClick={onEdit}
+                    className="flex items-center justify-center text-orange-500 w-full py-2"
+                >
+                    <img src="/Icon-edit.svg" alt="Editar" className="w-4 h-4 mr-2" />
+                    Editar
+                </button>
+            </div>
+        </div>
+    );
+};
