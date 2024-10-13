@@ -2,22 +2,23 @@ import React from 'react';
 
 interface CardProps {
     title: string;
+    base64: string;
     onDelete: () => void;
     onEdit: () => void;
 }
 
-export default function Card({ title, onDelete, onEdit }: CardProps) {
+export default function Card({ title, onDelete, onEdit, base64 }: CardProps) {
     return (
         <div className="bg-white shadow-lg rounded-xl p-4 flex flex-col items-center justify-between">
             <div className="flex flex-col items-center">
-                {/* Ícone circular */}
+
                 <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                    <img src="/icone.svg" alt="Icon" className="w-12 h-12" />
+                    <img src={base64} alt="Card Image" className="w-12 h-12" />
                 </div>
-                {/* Título */}
+
                 <p className="text-gray-600 text-center mb-4">{title}</p>
             </div>
-            {/* Botões de ação */}
+
             <div className="flex justify-between w-full border-t pt-2">
                 <button
                     onClick={onDelete}

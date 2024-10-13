@@ -1,39 +1,70 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import Card from './card';
+import { ICard } from '@/types/card';
+import { Skeleton } from "@/components/ui/skeleton";
+import DeleteModal from './deleteCardModal';
+import { CardService } from '@/services/cardService';
+import EditCardModal from './editCardModal';
 
-export default function CardList() {
-  const cards = [
-    { id: 1, title: 'Lorem ipsum dolor sit amet' },
-    { id: 2, title: 'Lorem ipsum dolor sit amet' },
-    { id: 3, title: 'Lorem ipsum dolor sit amet' },
-    { id: 4, title: 'Lorem ipsum dolor sit amet' },
-    { id: 5, title: 'Lorem ipsum dolor sit amet' },
-    { id: 6, title: 'Lorem ipsum dolor sit amet' },
-    { id: 7, title: 'Lorem ipsum dolor sit amet' },
-    { id: 8, title: 'Lorem ipsum dolor sit amet' },
-  ];
+interface CardListProps {
+  cards: ICard[];
+  loading: boolean;
+}
 
-  const handleDelete = (id: number) => {
-    console.log(`Excluir card com id: ${id}`);
+export default function CardList({ cards, loading }: CardListProps) {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<ICard | null>(null);
+
+  const handleDelete = (card: ICard) => {
+    setSelectedCard(card);
+    setDeleteModalOpen(true);
   };
 
-  const handleEdit = (id: number) => {
-    console.log(`Editar card com id: ${id}`);
+  const handleEdit = (card: ICard) => {
+    setSelectedCard(card);
+    setEditModalOpen(true);
+    console.log(`Editar card com id: ${card.id}`);
   };
+
+  const confirmDelete = () => {
+    if (selectedCard?.id) CardService.Delete(selectedCard.id ?? "");
+    console.log(`Card deletado com ID: ${selectedCard?.id}`);
+    setDeleteModalOpen(false);
+  };
+
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto py-8">
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            title={card.title}
-            onDelete={() => handleDelete(card.id)}
-            onEdit={() => handleEdit(card.id)}
-          />
-        ))}
+        {loading ? (
+          Array.from({ length: 12 }).map((_, index) => (
+            <Skeleton key={index} className="h-64 w-full bg-gray-200" />
+          ))
+        ) : (
+          <>
+            {cards && cards.length > 0 ? (
+              cards.map((card) => (
+                <Card
+                  key={card.id}
+                  base64={card.photo.base64}
+                  title={card.name}
+                  onDelete={() => handleDelete(card)}
+                  onEdit={() => handleEdit(card)}
+                />
+              ))
+            ) : (
+              <div>
+                <p>Não há cards para exibir. Crie seu primeiro card :)</p>
+              </div>
+            )}
+          </>
+        )}
       </div>
+      <DeleteModal isOpen={deleteModalOpen} setIsOpen={() => setDeleteModalOpen(false)} onConfirm={confirmDelete} />
+      <EditCardModal isOpen={editModalOpen} setIsOpen={() => setEditModalOpen(false)} card={selectedCard!} />
     </div>
   );
-};
+}
