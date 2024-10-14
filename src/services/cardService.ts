@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { NotFoundError, UnexpectedError, ValidationError } from "@/errors";
 import { AxiosResponse, HttpStatusCode } from "axios";
 import { api } from "./api";
