@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Impar Front-Ent -> Teste Técnico
 
-## Getting Started
+Este é o frontend da aplicação **Impar Front-Ent**, desenvolvido com **Next.js** e **TypeScript**, que visa testar um CRUD completo com paginação e busca de cards.
 
-First, run the development server:
+## Tecnologias Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js 14**
+- **React 18**
+- **TypeScript**
+- **Tailwind CSS**
+- **API Rest** para integração com backend
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades Principais
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Listagem de cards
+- Adição de novo card
+- Editar card existente
+- Excluir card existente
+- Paginação dos cards
+- Busca dos cards por nome
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Instalação e Execução
 
-## Learn More
+Siga os passos abaixo para clonar o repositório e rodar a aplicação localmente:
 
-To learn more about Next.js, take a look at the following resources:
+### Pré-requisitos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Antes de começar, certifique-se de ter instalado as seguintes ferramentas em seu ambiente de desenvolvimento:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Node.js** versão 22.6.0 ou superior
+- **npm** ou **yarn**
 
-## Deploy on Vercel
+### Passos para Clonar e Rodar o Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone o Repositório**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Abra o terminal e execute o comando abaixo para clonar o repositório do GitHub:
+
+   ```bash
+   git clone https://github.com/Claudevanio/Impar-FrontEnd.git
+
+2. **Acesse o Diretório do Projeto**
+
+   Navegue até a pasta do projeto recém-clonado:
+
+   ```bash
+   cd Impar-FrontEnd
+
+3. **Instale as Dependências**
+
+   Instale todas as dependências do projeto. Você pode escolher entre `npm` ou `yarn`:
+
+   - Com **npm**:
+
+     ```bash
+     npm install
+     ```
+
+   - Com **yarn**:
+
+     ```bash
+     yarn install
+     ```
+
+4. **Configure Variáveis de Ambiente**
+
+   Crie um arquivo `.env` na raiz do projeto e adicione as variáveis de ambiente necessárias, conforme o arquivo `.env.example`.
+
+5. **Inicie o Servidor de Desenvolvimento**
+
+   Para rodar o projeto localmente, execute o comando abaixo:
+
+   - Com **npm**:
+
+     ```bash
+     npm run dev
+     ```
+
+   - Com **yarn**:
+
+     ```bash
+     yarn dev
+     ```
+
+6. **Acesse a Aplicação**
+
+   O projeto estará rodando localmente em: `http://localhost:3000`
