@@ -13,6 +13,7 @@ export default function Home() {
     const [cards, setCards] = useState<ICard[] | []>([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [hasNextPage, setHasNextPage] = useState(false);
 
     const handleOpen = () => setIsOpen(!isOpen);
 
@@ -22,6 +23,7 @@ export default function Home() {
         const res = await CardService.GetAll({ Page: page, Size: 8 });
 
         setCards(res.itens);
+        setHasNextPage(res.pagination.page < res.pagination.totalPages)
         setLoading(false);
     }
 
@@ -59,13 +61,14 @@ export default function Home() {
                             <PaginationPrevious onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} href="#" />
                         </PaginationItem>
                         <PaginationItem>
-                            <PaginationLink href="#" onClick={() => setCurrentPage(1)}>1</PaginationLink>
+                            <PaginationLink href="#" onClick={() => setCurrentPage(1)}>{currentPage}</PaginationLink>
                         </PaginationItem>
                         <PaginationItem>
                             <PaginationEllipsis />
                         </PaginationItem>
                         <PaginationItem>
-                            <PaginationNext onClick={() => setCurrentPage(prev => prev + 1)} href="#" />
+                            <PaginationNext aria-disabled={true} onClick={() => setCurrentPage(prev => prev + 1)} href="#" className={`${!hasNextPage ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+                                }`} />
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>
