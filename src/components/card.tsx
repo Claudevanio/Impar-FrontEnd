@@ -22,16 +22,16 @@ export default function Card({ title, onDelete, onEdit, base64 }: CardProps) {
             <div className="flex justify-between w-full border-t pt-2">
                 <button
                     onClick={onDelete}
-                    className="flex items-center justify-center text-red-500 w-full py-2"
+                    className="flex items-center justify-center text-gray-400 w-full py-2"
                 >
-                    <img src="/Icon-trash.svg" alt="Excluir" className="w-4 h-4 mr-2" />
+                    <img src="/Icon-trash.svg" alt="Excluir" className="w-4 h-4 mr-2 text-red-500" />
                     Excluir
                 </button>
                 <button
                     onClick={onEdit}
-                    className="flex items-center justify-center text-orange-500 w-full py-2"
+                    className="flex items-center justify-center text-gray-400 w-full py-2"
                 >
-                    <img src="/Icon-edit.svg" alt="Editar" className="w-4 h-4 mr-2" />
+                    <img src="/Icon-edit.svg" alt="Editar" className="w-4 h-4 mr-2 text-orange-500" />
                     Editar
                 </button>
             </div>

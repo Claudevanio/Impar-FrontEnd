@@ -1,5 +1,6 @@
 export interface IGetAllCardReq {
   Page: number;
+  Size: number;
   Name?: string;
 }
 

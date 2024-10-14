@@ -1,4 +1,5 @@
 'use client'
+import { cn } from '@/lib/utils';
 import React, { ButtonHTMLAttributes } from 'react';
 
 interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,7 +9,10 @@ interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default function CustomButton({ text, onClick, className, ...props }: CustomButtonProps) {
     return (
         <button
-            className={`bg-orange-500 text-white max-h-12 px-10 rounded-xl shadow-md hover:bg-orange-600 transition-all ${className}`}
+            className={cn(
+                "bg-orange-500 text-white max-h-12 px-10 rounded-xl shadow-md hover:bg-orange-600 transition-all",
+                className
+            )}
             onClick={onClick}
             {...props}
         >

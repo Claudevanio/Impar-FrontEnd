@@ -1,22 +1,27 @@
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { useToast } from "@/hooks/use-toast";
 import { CardService } from "@/services/cardService";
-import { ICard, ICreateCard, IUpdateCard } from "@/types/card";
+import { ICard, IUpdateCard } from "@/types/card";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import CircularProgress from "./circularProgress";
 
 interface NewCardModalProps {
     isOpen: boolean;
     setIsOpen: () => void;
+    updateData: (page: number) => void;
     card: ICard;
 }
 
-export default function EditCardModal({ isOpen, setIsOpen, card }: NewCardModalProps) {
+export default function EditCardModal({ isOpen, card, setIsOpen, updateData }: NewCardModalProps) {
+    const { toast } = useToast()
 
     const [imageBase64, setImageBase64] = useState<string | null>(null);
-    const [fileName, setFileName] = useState<string>("Nenhum arquivo selecionado");
+    const [fileName, setFileName] = useState<string>("Alterar arquivo");
     const [cardName, setCardName] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -31,10 +36,6 @@ export default function EditCardModal({ isOpen, setIsOpen, card }: NewCardModalP
     };
 
     const handleCreateCard = async () => {
-        if (!cardName || !imageBase64) {
-            setErrorMessage("Por favor, preencha todos os campos.");
-            return;
-        }
 
         const cardData: IUpdateCard = {
             id: card.id,
@@ -42,21 +43,37 @@ export default function EditCardModal({ isOpen, setIsOpen, card }: NewCardModalP
             base64: imageBase64 != null ? imageBase64 : undefined,
         };
 
-        const res = await CardService.Update(cardData);
-        console.log(cardData);
+        setIsLoading(true);
 
-        setErrorMessage("");
-        setFileName("");
-        setCardName("");
-        setIsOpen();
+        try {
+            const res = await CardService.Update(cardData);
+            toast({
+                title: "Card editado",
+                description: `O card "${cardData.name}" foi editado com sucesso!`,
+                variant: "default",
+            });
+            updateData(1);
+
+            setErrorMessage("");
+            setFileName("");
+            setCardName("");
+            setIsOpen();
+        } catch (error) {
+            toast({
+                title: "Erro ao editar card",
+                description: "Ocorreu um erro ao tentar editar o card. Tente novamente.",
+                variant: "destructive",
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
         if (card != null) {
             setCardName(card.name)
-            setFileName(card.photoId)
         }
-    }, []);
+    }, [card]);
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -135,7 +152,7 @@ export default function EditCardModal({ isOpen, setIsOpen, card }: NewCardModalP
                             className="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-foreground hover:bg-orange-600 focus:outline-none"
                             onClick={handleCreateCard}
                         >
-                            Criar card
+                            {isLoading ? <div className="h-6 w-20"><CircularProgress /></div> : <>Editar card</>}
                         </button>
                     </div>
                 </div>

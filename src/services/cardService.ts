@@ -53,7 +53,7 @@ export const CardService = {
 
     Update: async (data: IUpdateCard) => {
         try {
-            const response = await api.patch(`/${endpoint}`, data);
+            const response = await api.put(`/${endpoint}`, data);
             // return response.data as data;
         } catch (error: any) {
             if (error.response) {
