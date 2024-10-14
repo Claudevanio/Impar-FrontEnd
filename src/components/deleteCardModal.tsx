@@ -1,5 +1,5 @@
 import CustomButton from "./newCardButton";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle } from "./ui/dialog";
 import Image from 'next/image';
 
 interface DeleteModalProps {

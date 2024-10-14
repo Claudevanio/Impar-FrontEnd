@@ -46,7 +46,7 @@ export default function EditCardModal({ isOpen, card, setIsOpen, updateData }: N
         setIsLoading(true);
 
         try {
-            const res = await CardService.Update(cardData);
+            await CardService.Update(cardData);
             toast({
                 title: "Card editado",
                 description: `O card "${cardData.name}" foi editado com sucesso!`,
@@ -58,7 +58,8 @@ export default function EditCardModal({ isOpen, card, setIsOpen, updateData }: N
             setFileName("");
             setCardName("");
             setIsOpen();
-        } catch (error) {
+        } catch (error: any) {
+            console.log(error);
             toast({
                 title: "Erro ao editar card",
                 description: "Ocorreu um erro ao tentar editar o card. Tente novamente.",

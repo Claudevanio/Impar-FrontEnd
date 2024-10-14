@@ -52,7 +52,7 @@ export default function NewCardModal({ isOpen, setIsOpen, updateData }: NewCardM
         setIsLoading(true);
 
         try {
-            const res = await CardService.Create(cardData);
+            await CardService.Create(cardData);
 
             toast({
                 title: "Card criado",
@@ -66,9 +66,10 @@ export default function NewCardModal({ isOpen, setIsOpen, updateData }: NewCardM
             setCardName("");
             setIsOpen();
         } catch (error) {
+            console.log(error)
             toast({
                 title: "Erro ao criar card",
-                description: "Ocorreu um erro ao tentar criar o card. Tente novamente.",
+                description: "Ocorreu um erro ao tentar criar o card. Tente novamente. ",
                 variant: "destructive",
             });
         } finally {

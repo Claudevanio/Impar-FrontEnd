@@ -5,7 +5,6 @@ import {
     IGetAllCardReq,
     IGetAllCardRes,
     ICreateCard,
-    ICard,
     IUpdateCard,
 } from "@/types/card";
 
@@ -36,8 +35,8 @@ export const CardService = {
         data: ICreateCard
     ) => {
         try {
-            const response = await api.post(`/${endpoint}`, data);
-            // return response.data as TransactionsContasBancarias;
+            await api.post(`/${endpoint}`, data);
+
         } catch (error: any) {
             if (error.response) {
                 switch (error.response.status) {
@@ -53,8 +52,8 @@ export const CardService = {
 
     Update: async (data: IUpdateCard) => {
         try {
-            const response = await api.put(`/${endpoint}`, data);
-            // return response.data as data;
+            await api.put(`/${endpoint}`, data);
+
         } catch (error: any) {
             if (error.response) {
                 switch (error.response.status) {
